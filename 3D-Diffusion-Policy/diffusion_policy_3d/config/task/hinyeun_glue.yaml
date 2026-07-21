@@ -1,0 +1,41 @@
+# Offline DP3 task for the HINYEUN right-arm glue demonstrations.
+# The converted Zarr contains XYZ point clouds only; RGB images are not used.
+# Recommended launch overrides for the first run:
+#   task=hinyeun_glue horizon=16 n_obs_steps=2 n_action_steps=4
+name: hinyeun_glue
+task_name: hinyeun_glue
+
+# These dimensions must match hinyeun_glue_right_dp3.zarr exactly.
+shape_meta: &shape_meta
+  obs:
+    point_cloud:
+      shape: [1024, 3]  # fixed-size gravity-aligned XYZ cloud
+      type: point_cloud
+    agent_pos:
+      shape: [8]        # 7 right-arm joints + right gripper width
+      type: low_dim
+  action:
+    shape: [9]          # 7 joints + gripper command + dispenser command
+
+# Training is offline for now. A real-robot runner will be added separately
+# when the live camera/robot observation and action interfaces are ready.
+env_runner: null
+
+dataset:
+  _target_: diffusion_policy_3d.dataset.hinyeun_glue_dataset.HinyeunGlueDataset
+  zarr_path: data/hinyeun_glue_right_dp3.zarr
+
+  # Inherited from dp3.yaml. Recommended first run:
+  # horizon=16, n_obs_steps=2, n_action_steps=4 at the dataset's 10 Hz.
+  horizon: ${horizon}
+
+  # Repeat the first/last frame near episode boundaries instead of allowing a
+  # sampled sequence to cross into a different demonstration.
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+
+  seed: 42
+  # Split complete episodes. With 52 episodes, 0.1 selects about five for val.
+  val_ratio: 0.1
+  # null keeps every non-validation episode for training.
+  max_train_episodes: null

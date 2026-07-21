@@ -24,6 +24,7 @@ nohup.out
 data/
 _C.cpython-38-x86_64-linux-gnu.so
 _C.cpython-39-x86_64-linux-gnu.so
+_C.cpython-310-x86_64-linux-gnu.so
 *_temp.xml
 real_robot_data/
 output.gif
@@ -44,3 +45,19 @@ personal_TASK.md
 easytrain.sh
 nohup.out
 output/
+
+# local previews / training artifacts
+pointcloud_preview/
+wandb/
+.wandb/
+*.ckpt
+*.pt
+*.pth
+checkpoints/
+
+# env / IDE
+.venv/
+venv/
+.env
+.vscode/
+.idea/

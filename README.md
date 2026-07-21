@@ -1,5 +1,3 @@
-
-
 # <a href="https://3d-diffusion-policy.github.io">3D Diffusion Policy</a>
 
 <a href="https://3d-diffusion-policy.github.io"><strong>Project Page</strong></a>
@@ -8,188 +6,320 @@
   |
   <a href="https://x.com/ZeYanjie/status/1765414787775963232?s=20"><strong>Twitter</strong></a> | <a href="https://1drv.ms/u/s!Ag5QsBIFtRnTlFWqYWtS2wMMPKNX?e=dw8hsS"><strong>Data</strong></a>
 
-  <a href="https://yanjieze.com/">Yanjie Ze*</a>, 
-  <a href="https://www.gu-zhang.com/">Gu Zhang*</a>, 
-  <a href="https://zkangning.github.io">Kangning Zhang</a>, 
-  <a href="https://github.com/pummmmpkin">Chenyuan Hu</a>, 
-  <a href="https://wang-muhan.github.io/">Muhan Wang</a>, 
+  <a href="https://yanjieze.com/">Yanjie Ze*</a>,
+  <a href="https://www.gu-zhang.com/">Gu Zhang*</a>,
+  <a href="https://zkangning.github.io">Kangning Zhang</a>,
+  <a href="https://github.com/pummmmpkin">Chenyuan Hu</a>,
+  <a href="https://wang-muhan.github.io/">Muhan Wang</a>,
   <a href="http://hxu.rocks/">Huazhe Xu</a>
 
 
 **Robotics: Science and Systems (RSS) 2024**
 
-
-
-
-
 <div align="center">
   <img src="DP3.png" alt="dp3" width="100%">
 </div>
 
-**3D Diffusion Policy (DP3)** is a universal visual imitation learning algorithm that marries 3D visual representations with diffusion policies, achieving surprising effectiveness in diverse simulated and real-world tasks, including both high-dimensional and low-dimensional control tasks, with a practical inference speed.
+**3D Diffusion Policy (DP3)** 是一种通用的视觉模仿学习算法，将 3D 视觉表征与 Diffusion Policy 结合，在仿真与真实机器人任务中都表现突出，同时兼顾高维 / 低维控制，并具备实用的推理速度。
 
-**Small tips for using DP3:**
-- Try [longer prediction horizon](https://github.com/YanjieZe/3D-Diffusion-Policy/blob/b147695af3ecb90101745fe9778ade2f86f23a46/3D-Diffusion-Policy/diffusion_policy_3d/config/dp3.yaml#L10) and [longer action horizon](https://github.com/YanjieZe/3D-Diffusion-Policy/blob/b147695af3ecb90101745fe9778ade2f86f23a46/3D-Diffusion-Policy/diffusion_policy_3d/config/dp3.yaml#L12), e.g., 8/16/32, to get better results.
-- Try to use **global position** instead of relative position as **action space**.
+**使用小提示：**
+- 尝试更长的 [prediction horizon](https://github.com/YanjieZe/3D-Diffusion-Policy/blob/b147695af3ecb90101745fe9778ade2f86f23a46/3D-Diffusion-Policy/diffusion_policy_3d/config/dp3.yaml#L10) 与 [action horizon](https://github.com/YanjieZe/3D-Diffusion-Policy/blob/b147695af3ecb90101745fe9778ade2f86f23a46/3D-Diffusion-Policy/diffusion_policy_3d/config/dp3.yaml#L12)（如 8/16/32），通常效果更好。
+- 动作空间优先使用**全局位置**，而不是相对位置。
 
-**Applications and extensions of DP3 from the community**:
-- [arXiv 2025.10](https://lei-kun.github.io/RL-100/), *RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning*, where DP3 shows 100% manipulation success rate after offline RL and online RL finetuning.
-- [arXiv 2025.09](https://arxiv.org/abs/2509.01819), *ManiFlow: A General Robot Manipulation Policy via Consistency Flow Training*, where DP3 is improved via new backbones and flow matching objective.
-- [arXiv 2025.07](https://arxiv.org/abs/2507.00833), *HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning*, where DP3 shows superior performance over DP on bimanual humanoid manipulation tasks in simulation.
-- [arXiv 2025.06](https://arxiv.org/abs/2506.15666), *Vision in Action: Learning Active Perception from Human Demonstrations*, where DP3 serves as a strong baseline in active perception tasks.
-- [arXiv 2025.06](https://arxiv.org/abs/2506.14317), *ClutterDexGrasp: A Sim-to-Real System for General Dexterous Grasping in Cluttered Scenes*, where DP3 shows impressive dex grasping capbilities by distilling an RL teacher policy.
-- [arXiv 2025.05](https://arxiv.org/abs/2505.07819), *H3DP: Triply-Hierarchical Diffusion Policy for Visuomotor Learning*, where DP3 shows significantly better results over DP and DP w/ depth.
-- [arXiv 2025.03](https://arxiv.org/abs/2503.07511), *PointVLA: Injecting the 3D World into Vision-Language-Action Models*, where [iDP3 Encoder](https://github.com/YanjieZe/Improved-3D-Diffusion-Policy) is used in training a powerful 3D VLA.
-- [arXiv 2025.03](https://arxiv.org/abs/2503.08950), *FP3: A 3D Foundation Policy for Robotic Manipulation*, where DP3 shows great generalizability abilities comparable to a large-scale trained 3D policy FP3.
-- [arXiv 2025.02](https://arxiv.org/abs/2502.16932), *DemoGen: Synthetic Demonstration Generation for Data-Efficient Visuomotor Policy Learning*, where DP3 can achieve great real-world abilities with generated demos.
-- [arXiv 2024.11](https://arxiv.org/abs/2411.09658), *Motion Before Action: Diffusing Object Motion as Manipulation Condition*, where DP3 shows improved effectiveness with a Motion-Before-Action module.
-- [arXiv 2024.10](https://arxiv.org/abs/2410.10803), *Generalizable Humanoid Manipulation with 3D Diffusion Policies*, where improved DP3 shows effectiveness in humanoid manipulation tasks and impressive generalization abilities across scenes.
-- [arXiv 2024.09](https://arxiv.org/abs/2409.07163), *Mamba Policy: Towards Efficient 3D Diffusion Policy with Hybrid Selective State Models*, where the backbone of DP3 is replaced with the Mamba archiecture.
-- [arXiv 2024.09](https://arxiv.org/abs/2409.02920), *RoboTwin: Dual-Arm Robot Benchmark with Generative Digital Twins*, where DP3 is well benchmarked on 6 new simulated bimanual tasks.
-- [arXiv 2024.08](https://arxiv.org/abs/2408.11805), *ACE: A Cross-Platform Visual-Exoskeletons System for Low-Cost Dexterous Teleoperation*, where DP3 shows effectiveness in bimanual dexterous tasks.
-- [arXiv 2024.07](https://arxiv.org/abs/2407.03162), *Bunny-VisionPro: Real-Time Bimanual Dexterous Teleoperation for Imitation Learning*, where DP3 shows effectiveness in bimanual long-horizon tasks.
-- [arXiv 2024.07](https://arxiv.org/abs/2407.01479), *EquiBot: SIM(3)-Equivariant Diffusion Policy for Generalizable and Data Efficient Learning*, where DP3 is able to fold clothes with high success rates. 
-- [arXiv 2024.06](https://arxiv.org/abs/2406.01586), *ManiCM: Real-time 3D Diffusion Policy via Consistency Model for Robotic Manipulation*, where DP3 is accelerated via consistency model.
-- [arXiv 2024.03](https://arxiv.org/abs/2403.20328), *Learning Visual Quadrupedal Loco-Manipulation from Demonstrations*, where DP3 is used as the high-level planner.
+**本仓库额外内容（HINYEUN 涂胶）：** 已加入 LeRobot → DP3 Zarr 转换、点云裁剪与离线训练流程，详见下方「HINYEUN Glue 右臂 DP3」章节，完整笔记也可直接看 [README_LPY.md](README_LPY.md)。
 
+**社区应用与扩展（节选）：**
+- [arXiv 2025.10](https://lei-kun.github.io/RL-100/) *RL-100*：离线 + 在线 RL 微调后，DP3 操作成功率可达 100%。
+- [arXiv 2025.09](https://arxiv.org/abs/2509.01819) *ManiFlow*：用新 backbone 与 flow matching 改进 DP3。
+- [arXiv 2025.03](https://arxiv.org/abs/2503.07511) *PointVLA*：使用 [iDP3 Encoder](https://github.com/YanjieZe/Improved-3D-Diffusion-Policy) 训练 3D VLA。
+- [arXiv 2024.10](https://arxiv.org/abs/2410.10803) *Generalizable Humanoid Manipulation*：改进版 DP3 在人形操作与跨场景泛化上表现突出。
+- 更多相关工作见原作者上游仓库 README。
 
+---
 
+# 📊 DP3 Benchmark
 
+**仿真环境：** 本仓库提供 `Adroit`、`DexArt`、`MetaWorld` 的灵巧操作环境与专家策略（共 3+4+50=57 个任务），并已接入深度 / 点云等 3D 模态。
 
-# 📊 Benchmark of DP3
+**真机数据：** 官方示例数据见 [此处](https://drive.google.com/file/d/1G5MP6Nzykku9sDDdzy7tlRqMBnKb253O/view?usp=sharing)。
 
-**Simulation environments.** We provide dexterous manipulation environments and expert policies for `Adroit`, `DexArt`, and `MetaWorld` in this codebase (3+4+50=57 tasks in total). the 3D modality generation (depths and point clouds) has been incorporated for these environments.
+**算法配置：**
+- DP3：`dp3.yaml`（论文主方法；A40 上约 10G 显存、约 3 小时）
+- Simple DP3：`simple_dp3.yaml`（训练更快约 1–2 小时，推理约 **25 FPS**，性能损失较小，更适合机器人落地实验）
 
-**Real-world robot data** is also provided [here](https://drive.google.com/file/d/1G5MP6Nzykku9sDDdzy7tlRqMBnKb253O/view?usp=sharing).
+---
 
+# 💻 安装
 
-**Algorithms**. We provide the implementation of the following algorithms: 
-- DP3: `dp3.yaml`
-- Simple DP3: `simple_dp3.yaml`
+完整安装见 [INSTALL.md](INSTALL.md)。  
+安装常见问题见 [ERROR_CATCH.md](ERROR_CATCH.md)。
 
-Among these, `dp3.yaml` is the proposed algorithm in our paper, showing a significant improvement over the baselines. During training, DP3 takes ~10G gpu memory and ~3 hours on an Nvidia A40 gpu, thus it is feasible for most researchers.
+若只做 **HINYEUN Zarr 离线训练**（不跑官方仿真全栈），可用本仓库精简环境：
 
-`simple_dp3.yaml` is a simplified version of DP3, which is much faster in training (1~2 hour) and inference (**25 FPS**) , without much performance loss, thus it is more recommended for robotics researchers.
+```bash
+conda env create -f environment_dp3.yml
+conda activate dp3
+bash scripts/setup_dp3_env.sh
+```
 
-# 💻 Installation
+说明见下方 HINYEUN 章节，或 [README_LPY.md](README_LPY.md)。
 
-See [INSTALL.md](INSTALL.md) for installation instructions. 
+---
 
-See [ERROR_CATCH.md](ERROR_CATCH.md) for error catching I personally encountered during installation.
+# 📚 数据
 
-# 📚 Data
-You could generate demonstrations by yourself using our provided expert policies.  Generated demonstrations are under `$YOUR_REPO_PATH/3D-Diffusion-Policy/data/`.
-- Download Adroit RL experts from [OneDrive](https://1drv.ms/u/s!Ag5QsBIFtRnTlFWqYWtS2wMMPKNX?e=dw8hsS) or [GoogleDrive](https://drive.google.com/file/d/1iNkSrLD_N4NrezLx58L1YoBBqYYg-33u/view?usp=sharing), unzip it, and put the `ckpts` folder under `$YOUR_REPO_PATH/third_party/VRL3/`.
-- Download DexArt assets from [Google Drive](https://drive.google.com/file/d/1DxRfB4087PeM3Aejd6cR-RQVgOKdNrL4/view?usp=sharing) and put the `assets` folder under `$YOUR_REPO_PATH/third_party/dexart-release/`.
+可用仓库提供的专家策略自行生成演示数据，生成结果默认在 `$YOUR_REPO_PATH/3D-Diffusion-Policy/data/`。
 
+- 下载 Adroit RL experts：[OneDrive](https://1drv.ms/u/s!Ag5QsBIFtRnTlFWqYWtS2wMMPKNX?e=dw8hsS) 或 [GoogleDrive](https://drive.google.com/file/d/1iNkSrLD_N4NrezLx58L1YoBBqYYg-33u/view?usp=sharing)，解压后将 `ckpts` 放到 `$YOUR_REPO_PATH/third_party/VRL3/`。
+- 下载 DexArt assets：[Google Drive](https://drive.google.com/file/d/1DxRfB4087PeM3Aejd6cR-RQVgOKdNrL4/view?usp=sharing)，将 `assets` 放到 `$YOUR_REPO_PATH/third_party/dexart-release/`。
 
-**Note**: since you are generating demonstrations by yourselves, the results could be slightly different from the results reported in the paper. This is normal since the results of imitation learning highly depend on the demonstration quality. **Please re-generate demonstrations if you encounter some bad demonstrations** and **no need to open a new issue**.
+**注意：** 自行生成的演示与论文数值可能略有差异，这在模仿学习中很常见。若遇到质量较差的演示，请重新生成，无需为此单独开 issue。
 
-# 🛠️ Usage
-Scripts for generating demonstrations, training, and evaluation are all provided in the `scripts/` folder. 
+---
 
-The results are logged by `wandb`, so you need to `wandb login` first to see the results and videos.
+# 🛠️ 使用方法
 
-For more detailed arguments, please refer to the scripts and the code. We here provide a simple instruction for using the codebase.
+生成演示、训练、评估脚本都在 `scripts/`。结果默认用 `wandb` 记录，首次使用请先 `wandb login`。
 
-1. Generate demonstrations by `gen_demonstration_adroit.sh` and `gen_demonstration_dexart.sh`. See the scripts for details. For example:
-    ```bash
-    bash scripts/gen_demonstration_adroit.sh hammer
-    ```
-    This will generate demonstrations for the `hammer` task in Adroit environment. The data will be saved in `3D-Diffusion-Policy/data/` folder automatically.
+1. **生成演示**（示例：Adroit hammer）
+   ```bash
+   bash scripts/gen_demonstration_adroit.sh hammer
+   ```
+   数据会自动保存到 `3D-Diffusion-Policy/data/`。
 
+2. **训练并评估策略**
+   ```bash
+   bash scripts/train_policy.sh dp3 adroit_hammer 0112 0 0
+   ```
+   默认会保存 checkpoint（可在脚本中关闭）。
 
-2. Train and evaluate a policy with behavior cloning. For example:
-    ```bash
-    bash scripts/train_policy.sh dp3 adroit_hammer 0112 0 0
-    ```
-    This will train a DP3 policy on the `hammer` task in Adroit environment using point cloud modality. By default we **save** the ckpt (optional in the script).
+3. **评估已保存策略 / 推理部署**
+   ```bash
+   bash scripts/eval_policy.sh dp3 adroit_hammer 0112 0 0
+   ```
+   **说明：** 评估脚本主要用于部署 / 推理；论文式 benchmark 请以训练过程中 wandb 记录为准。
 
+---
 
-3. Evaluate a saved policy or use it for inference. Please set  For example:
-    ```bash
-    bash scripts/eval_policy.sh dp3 adroit_hammer 0112 0 0
-    ```
-    This will evaluate the saved DP3 policy you just trained. **Note: the evaluation script is only provided for deployment/inference. For benchmarking, please use the results logged in wandb during training.**
+# 🤖 真机（官方示例）
 
-# 🤖 Real Robot
+**硬件：** Franka + Allegro Hand + **L515** RealSense（不建议 D435，点云质量过低可能导致 DP3 失败）等，详见上游说明。
 
-**Hardware Setup**
-1. Franka Robot
-2. Allegro Hand
-3. **L515** Realsense Camera (**Note: using the RealSense D435 camera might lead to failure of DP3 due to the very low quality of point clouds**)
-4. Mounted connection base [[link](https://drive.google.com/file/d/1kg6yOFxVqP8azxPoXsuyig5DEQnAJjwC/view?usp=sharing)] (connect Franka with Allegro hand)
-5. Mounted finger tip [[link](https://github.com/yzqin/dexpoint-release/blob/main/assets/robot/allegro_hand_description/meshes/modified_tip.STL)]
+**每条真机演示（长度 T）字段约定：**
+1. `point_cloud`: `(T, Np, 6)`，即 `[x, y, z, r, g, b]`。**强烈建议裁掉桌面 / 背景，只保留有效点云。**
+2. `image`: `(T, H, W, 3)`
+3. `depth`: `(T, H, W)`
+4. `agent_pos`: `(T, Nd)`（官方灵巧手任务 Nd=22）
+5. `action`: `(T, Nd)`（机械臂相对末端位姿 + 灵巧手相对关节角）
 
-**Software**
-1. Ubuntu 20.04.01 (tested)
-2. [Franka Interface Control](https://frankaemika.github.io/docs/index.html) 
-3. [Frankx](https://github.com/pantor/frankx) (High-Level Motion Library for the Franka Emika Robot)
-4. [Allegro Hand Controller - Noetic](https://github.com/NYU-robot-learning/Allegro-Hand-Controller-DIME)
+训练前需按论文做点云裁剪与 FPS 下采样。可参考 [`scripts/convert_real_robot_data.py`](scripts/convert_real_robot_data.py)。  
+用官方真机数据训练示例：
 
+```bash
+bash scripts/train_policy.sh dp3 realdex_drill 0112 0 0
+```
 
-Every collected real robot demonstration (episode length: T) is a dictionary:
-1. "point_cloud": Array of shape (T, Np, 6), Np is the number of point clouds, 6 denotes [x, y, z, r, g, b]. **Note: it is highly suggested to crop out the table/background and only leave the useful point clouds in your observation, which demonstrates effectiveness in our real-world experiments.**
-2. "image": Array of shape (T, H, W, 3)
-3. "depth": Array of shape (T, H, W)
-4. "agent_pos": Array of shape (T, Nd), Nd is the action dim of the robot agent, i.e. 22 for our dexhand tasks (6d position of end effector + 16d joint position)
-5. "action": Array of shape (T, Nd). We use *relative end-effector position control* for the robot arm and *relative joint-angle position control* for the dex hand.
+真机部署代码可参考 [iDP3](https://github.com/YanjieZe/Improved-3D-Diffusion-Policy)。
 
-For training and evaluation, you should process the point clouds (cropping using a bounding box and FPS downsampling) as described in the paper. We also provide an example script ([here](https://github.com/YanjieZe/3D-Diffusion-Policy/tree/master/scripts/convert_real_robot_data.py)). 
+---
 
-You can try using our provided real world data to train the policy.
-1. Download the real robot data. Put the data under `3D-Diffusion-Policy/data/` folder, e.g. `3D-Diffusion-Policy/data/realdex_drill.zarr`, please keep the path the same as 'zarr_path' in the task's yaml file.
-2. Train the policy. For example:
-  ```bash
-    bash scripts/train_policy.sh dp3 realdex_drill 0112 0 0
-  ```
-3. For real-world deployment code, you might refer to [iDP3](https://github.com/YanjieZe/Improved-3D-Diffusion-Policy) for a reference.
-   
-# 🔍 Visualizer
-We provide a simple visualizer to visualize point clouds for the convenience of debugging in headless machines. You could install it by
+# 🔍 点云可视化
+
 ```bash
 cd visualizer
 pip install -e .
 ```
-Then you could visualize point clouds by
+
 ```python
 import visualizer
-your_pointcloud = ... # your point cloud data, numpy array with shape (N, 3) or (N, 6)
+your_pointcloud = ...  # numpy, shape (N, 3) 或 (N, 6)
 visualizer.visualize_pointcloud(your_pointcloud)
 ```
-This will show the point cloud in a web browser.
 
+会在浏览器中打开点云可视化页面，便于无头机器调试。
 
-# 🦾 Run On Your Own Tasks
-The good part of DP3 is its universality, so that you could easily run DP3 on your own tasks. What you need to add is to make this codebase support the task in our format. Here are some simple steps:
+---
 
+# 🦾 接入你自己的任务
 
-1. Write the environment wrapper for your task. You need to write a wrapper for your environment, to make the environment interface easy to use. See `3D-Diffusion-Policy/diffusion_policy_3d/env/adroit` for an example.
+1. 为任务写环境 wrapper（参考 `3D-Diffusion-Policy/diffusion_policy_3d/env/adroit`）。
+2. 添加 env runner（参考 `env_runner/`）。
+3. 准备专家数据（可参考 `third_party/VRL3/src/gen_demonstration.py`）。
+4. 添加 Dataset（参考 `dataset/`）。
+5. 在 `config/task` 下添加任务 yaml。
+6. 用 `scripts/train_policy.sh` 训练与评估。
 
+---
 
-2. Add the environment runner for your task. See `3D-Diffusion-Policy/diffusion_policy_3d/env_runner/` for examples.
+# 🧪 HINYEUN Glue 右臂 DP3
 
-3. Prepare expert data for your task. The script `third_party/VRL3/src/gen_demonstration.py` is a good example of how to generate demonstrations in our format. Basically expert data is the state-action pairs saved in a sequence.
+本节汇总本仓库针对 **HINYEUN 涂胶** 的点云裁剪 / LeRobot→Zarr 转换与 **离线训练** 流程。更完整的笔记见 [README_LPY.md](README_LPY.md)（该文件保持独立，不会被本 README 替代）。
 
-4. Add the dataset which loads your data. See `3D-Diffusion-Policy/diffusion_policy_3d/dataset/` for examples.
+## 相关文件
 
-5. Add the config file in `3D-Diffusion-Policy/diffusion_policy_3d/configs/task`. There have been many examples in the folder.
+| 项目 | 路径 |
+|------|------|
+| 点云预览 / 裁剪调参 | `scripts/visualize_lerobot_pointcloud.py` |
+| LeRobot → DP3 Zarr 转换 | `scripts/convert_hinyeun_lerobot_to_dp3.py` |
+| 训练用 Zarr | `3D-Diffusion-Policy/data/hinyeun_glue_right_dp3.zarr` |
+| Task 配置 | `3D-Diffusion-Policy/diffusion_policy_3d/config/task/hinyeun_glue.yaml` |
+| Dataset 类 | `3D-Diffusion-Policy/diffusion_policy_3d/dataset/hinyeun_glue_dataset.py` |
+| 主配置 | `3D-Diffusion-Policy/diffusion_policy_3d/config/dp3.yaml` |
+| 精简训练环境 | `environment_dp3.yml` / `requirements_dp3.txt` / `scripts/setup_dp3_env.sh` |
 
-6. Train and evaluate DP3 on your task. See `3D-Diffusion-Policy/scripts/train_policy.sh` for examples.
+### 数据维度（须与 Zarr 一致）
 
+- `point_cloud`: `[1024, 3]`（重力对齐 XYZ，无 RGB）
+- `agent_pos` / `state`: `[8]`（右臂 7 关节 + 夹爪宽度）
+- `action`: `[9]`（7 关节 + 夹爪指令 + 点胶指令）
+- 推荐时序：`horizon=16`, `n_obs_steps=2`, `n_action_steps=4`（约 10 Hz）
+- `env_runner: null`（目前仅离线训练）
 
+完整 Zarr 约 20272 帧；源数据 30 Hz → 10 Hz；`sampling=fps`；`voxel_size=0.005`。
+
+## 点云裁剪在哪里
+
+裁剪**不在**训练 Dataset 里（训练直接读已裁好的 Zarr），而在转换链路：
+
+1. **调参 / 可视化**：`scripts/visualize_lerobot_pointcloud.py`
+   - Orbbec 深度反投影 → 重力对齐 → AABB 裁剪
+   - 交互式 HTML 调 `crop_min` / `crop_max`
+2. **批量写 Zarr**：`scripts/convert_hinyeun_lerobot_to_dp3.py`
+   - 默认裁剪框：
+     - `crop_min = (-0.222791, 0.238951, -0.282919)`
+     - `crop_max = (0.469885, 0.774905, 0.075385)`
+   - 再做体素下采样 + FPS/uniform，固定到 1024 点
+
+处理顺序：
+
+```text
+深度反投影 → 重力对齐 → AABB 裁剪 → voxel downsample → FPS/uniform → (T, 1024, 3)
+```
+
+### 交互调裁剪框
+
+```bash
+python scripts/visualize_lerobot_pointcloud.py \
+  --dataset-root /path/to/hinyeun_glue_0714_lerobot_rgbd \
+  --repo-id local/hinyeun_glue_0714_rgbd \
+  --frame-index 0 \
+  --gravity-align \
+  --crop-selector \
+  --output-dir pointcloud_preview
+```
+
+打开 `pointcloud_preview/frame_XXXXXX_crop_selector.html`，调好后把 `--crop-min` / `--crop-max` 传给转换脚本。
+
+### 转换完整数据集
+
+```bash
+python scripts/convert_hinyeun_lerobot_to_dp3.py \
+  --dataset-root /path/to/hinyeun_glue_0714_lerobot_rgbd \
+  --output /path/to/3D-Diffusion-Policy/data/hinyeun_glue_right_dp3.zarr \
+  --repo-id local/hinyeun_glue_0714_rgbd \
+  --target-fps 10 \
+  --num-points 1024 \
+  --crop-min -0.222791 0.238951 -0.282919 \
+  --crop-max 0.469885 0.774905 0.075385 \
+  --voxel-size 0.005 \
+  --sampling fps \
+  --overwrite
+```
+
+冒烟可用 `--max-episodes N`。常用参数：`--target-fps`、`--num-points`、`--pixel-stride`、`--min-depth-m` / `--max-depth-m`、`--crop-min` / `--crop-max`、`--voxel-size`、`--sampling`。
+
+## 训练环境（离线 HINYEUN）
+
+官方 `INSTALL.md` 面向仿真全栈（Python 3.8 + MuJoCo 等）。本仓库用于离线训练的 `dp3` 环境更精简（参考：Python 3.10、`torch 2.7.1+cu128`）。
+
+```bash
+conda env create -f environment_dp3.yml
+conda activate dp3
+bash scripts/setup_dp3_env.sh
+# 若 CUDA 较旧：TORCH_CUDA=cu121 bash scripts/setup_dp3_env.sh
+```
+
+- 本流程只覆盖 **DP3 离线训练**；LeRobot 点云转换请用单独环境，不要塞进 `dp3`。
+- 若要跑官方仿真（Adroit / MetaWorld），仍按 `INSTALL.md`。
+
+默认超参（`dp3.yaml`）：`num_epochs=3000`，`checkpoint_every=200`（需 `checkpoint.save_ckpt=true`），本任务常用 `batch_size=32`。
+
+## 启动训练
+
+**必须**指定 `--config-name=dp3`，否则 Hydra 会报 `Could not override 'task'`。  
+`train.py` 会切换工作目录，**建议用绝对路径**指定 zarr：
+
+```bash
+conda activate dp3
+cd /path/to/3D-Diffusion-Policy/3D-Diffusion-Policy
+
+python train.py --config-name=dp3 \
+  task=hinyeun_glue \
+  horizon=16 \
+  n_obs_steps=2 \
+  n_action_steps=4 \
+  task.dataset.zarr_path=/path/to/hinyeun_glue_right_dp3.zarr \
+  dataloader.batch_size=32 \
+  dataloader.num_workers=4 \
+  val_dataloader.batch_size=32 \
+  val_dataloader.num_workers=4 \
+  training.device=cuda:0 \
+  training.resume=false \
+  logging.mode=offline \
+  checkpoint.save_ckpt=true \
+  exp_name=hinyeun-glue-dp3
+```
+
+多行命令时，每行末尾 `\` 后不能有空格。恢复训练时设 `training.resume=true`，并尽量固定 `hydra.run.dir=...`。
+
+输出默认在 `3D-Diffusion-Policy/data/outputs/<exp_name>/`（含 `checkpoints/`）。
+
+### 冒烟测试
+
+```bash
+python train.py --config-name=dp3 \
+  task=hinyeun_glue \
+  horizon=16 \
+  n_obs_steps=2 \
+  n_action_steps=4 \
+  task.dataset.zarr_path=/path/to/hinyeun_glue_right_dp3_smoke.zarr \
+  dataloader.batch_size=8 \
+  dataloader.num_workers=0 \
+  val_dataloader.batch_size=8 \
+  val_dataloader.num_workers=0 \
+  training.device=cuda:0 \
+  training.num_epochs=1 \
+  training.max_train_steps=10 \
+  training.resume=false \
+  logging.mode=offline \
+  checkpoint.save_ckpt=false \
+  exp_name=hinyeun-glue-dp3-smoke
+```
+
+### 常见问题
+
+1. `Could not override 'task'` → 缺少 `--config-name=dp3`
+2. 找不到 zarr → 用 `task.dataset.zarr_path=` 绝对路径
+3. 命令粘贴损坏 → 检查 `\` 后无多余字符
+4. 需要完整 Hydra 堆栈 → `export HYDRA_FULL_ERROR=1`
+5. 裁剪后点太少 → 先用 `--crop-selector` 在重力对齐坐标系下调 AABB
+
+---
 
 # 🏷️ License
-This repository is released under the MIT license. See [LICENSE](LICENSE) for additional details.
+
+本仓库基于 MIT 协议发布，详见 [LICENSE](LICENSE)。
 
 # 😺 Acknowledgement
-Our code is generally built upon: [Diffusion Policy](https://github.com/real-stanford/diffusion_policy), [DexMV](https://github.com/yzqin/dexmv-sim), [DexArt](https://github.com/Kami-code/dexart-release), [VRL3](https://github.com/microsoft/VRL3), [DAPG](https://github.com/aravindr93/hand_dapg), [DexDeform](https://github.com/sizhe-li/DexDeform), [RL3D](https://github.com/YanjieZe/rl3d), [GNFactor](https://github.com/YanjieZe/GNFactor), [H-InDex](https://github.com/YanjieZe/H-InDex), [MetaWorld](https://github.com/Farama-Foundation/Metaworld), [BEE](https://jity16.github.io/BEE/), [Bi-DexHands](https://github.com/PKU-MARL/DexterousHands), [HORA](https://github.com/HaozhiQi/hora). We thank all these authors for their nicely open sourced code and their great contributions to the community.
 
-Contact [Yanjie Ze](https://yanjieze.com) if you have any questions or suggestions.
+代码主要基于：[Diffusion Policy](https://github.com/real-stanford/diffusion_policy)、[DexMV](https://github.com/yzqin/dexmv-sim)、[DexArt](https://github.com/Kami-code/dexart-release)、[VRL3](https://github.com/microsoft/VRL3)、[DAPG](https://github.com/aravindr93/hand_dapg)、[DexDeform](https://github.com/sizhe-li/DexDeform)、[RL3D](https://github.com/YanjieZe/rl3d)、[GNFactor](https://github.com/YanjieZe/GNFactor)、[H-InDex](https://github.com/YanjieZe/H-InDex)、[MetaWorld](https://github.com/Farama-Foundation/Metaworld)、[BEE](https://jity16.github.io/BEE/)、[Bi-DexHands](https://github.com/PKU-MARL/DexterousHands)、[HORA](https://github.com/HaozhiQi/hora) 等开源项目。感谢原作者与社区贡献。
+
+原项目问题可联系 [Yanjie Ze](https://yanjieze.com)。
 
 # 📝 Citation
 
-If you find our work useful, please consider citing:
+如果本工作对你有帮助，请引用：
+
 ```
 @inproceedings{Ze2024DP3,
 	title={3D Diffusion Policy: Generalizable Visuomotor Policy Learning via Simple 3D Representations},
